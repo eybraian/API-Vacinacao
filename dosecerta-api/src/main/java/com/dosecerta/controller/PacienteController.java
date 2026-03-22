@@ -16,7 +16,7 @@ import com.dosecerta.model.PacienteModel;
 import com.dosecerta.service.PacienteService;
 
 @RestController
-@RequestMapping("/pacientes")
+@RequestMapping("/paciente")
 public class PacienteController {
     
     private PacienteService service = new PacienteService();
@@ -28,25 +28,25 @@ public class PacienteController {
     }
 
     //CONSULTAR TODOS OS PACIENTES
-    @GetMapping
+    @GetMapping("/consultar")
     public List<PacienteModel> listar() throws SQLException {
         return service.listar();
     }
 
     //CONSULTAR PACIENTE POR ID
-    @GetMapping("/{id}")
+    @GetMapping("/consultar/{id}")
     public PacienteModel buscar(@PathVariable int id) throws SQLException {
         return service.buscarPorId(id);
     }
 
     //ALTERAR PACIENTE
-    @PutMapping("/{id}")
+    @PutMapping("/alterar/{id}")
     public boolean atualizar(@PathVariable int id, @RequestBody PacienteModel p) throws SQLException {
         return service.atualizar(id, p);
     }
 
     //EXCLUIR PACIENTE
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     public boolean deletar(@PathVariable int id) throws SQLException {
         return service.deletar(id);
     }

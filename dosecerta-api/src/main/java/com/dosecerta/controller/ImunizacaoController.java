@@ -11,72 +11,73 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dosecerta.model.ImunizacaoModel;
 import com.dosecerta.service.ImunizacaoService;
 
 @RestController
-@RequestMapping("imunizacoes")
+@RequestMapping("imunizacao")
 public class ImunizacaoController {
     
     private ImunizacaoService service = new ImunizacaoService();
 
     //ADICIONAR IMUNIZACAO
-    @PostMapping
+    @PostMapping("/inserir")
     public int registrar(@RequestBody ImunizacaoModel i) throws SQLException {
         return service.registrar(i);
     }
 
-    //ATUALIZAR IMUNIZACAO
-    @PutMapping("/{id}")
+    //ATUALIZAR IMUNIZACAO POR ID DA IMUNIZACAO
+    @PutMapping("/alterar/{id}")
     public boolean atualizar(@PathVariable int id, @RequestBody ImunizacaoModel i) throws SQLException {
         return service.atualizar(id, i);
     }
 
-    //EXCLUIR IMUNIZACAO
-    @DeleteMapping("/{id}")
-    public boolean deletar(@PathVariable int id) throws SQLException {
+    //EXCLUIR IMUNIZACAO POR ID DA IMUNIZACAO
+    @DeleteMapping("/excluir/{id_imunizacao}")
+    public boolean deletar(@PathVariable("id_imunizacao") int id) throws SQLException {
         return service.deletar(id);
     }
 
     //EXCLUIR TODAS AS IMUNIZACOES DE UM DETERMINADO PACIENTE
-    {}
+    @DeleteMapping("/excluir/paciente/{id_paciente}")
+    public boolean deletarPorPaciente(@PathVariable int id_paciente) throws SQLException {
+        return service.deletarPorPaciente(id_paciente);
+    }
 
     //CONSULTAR TODAS AS IMUNIZACOES
-    @GetMapping
+    @GetMapping("/consultar")
     public List<ImunizacaoModel> listar() throws SQLException {
         return service.listar();
     }
 
-    //CONSULTAR IMUNIZACAO POR ID
-    {}
-    
+    //CONSULTAR IMUNIZACAO POR ID DA IMUNIZACAO
+    @GetMapping("/consultar/{id}")
+    public ImunizacaoModel buscarPorId(@PathVariable int id) throws SQLException {
+        return service.buscarPorId(id);
+    }
+
     //CONSULTAR IMUNIZACAO POR ID DO PACIENTE
-    @GetMapping("/paciente/{id}")
+    @GetMapping("/consultar/paciente/{id}")
     public List<ImunizacaoModel> porPaciente(@PathVariable int id) throws SQLException {
         return service.porPaciente(id);
     }
 
-    //CONSULTAR CONSULTAR IMUNIZACOES POR INTERVALO DE APLICACAO
-    @GetMapping("/periodo")
+    //CONSULTAR IMUNIZACOES por id do paciente e intervalo de aplicação
+    @GetMapping("/consultar/paciente/{id}/aplicacao/{dt_ini}/{dt_fim}")
     public List<ImunizacaoModel> porPeriodo(
-            @RequestParam int paciente,
-            @RequestParam String inicio,
-            @RequestParam String fim
+            @PathVariable int id,
+            @PathVariable String dt_ini,
+            @PathVariable String dt_fim
     ) throws SQLException {
 
         return service.porPeriodo(
-                paciente,
-                LocalDate.parse(inicio),
-                LocalDate.parse(fim)
+                id,
+                LocalDate.parse(dt_ini),
+                LocalDate.parse(dt_fim)
         );
     }
 
-   
-
-    
-   
 
 }

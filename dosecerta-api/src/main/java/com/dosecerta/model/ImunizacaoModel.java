@@ -18,7 +18,7 @@ public class ImunizacaoModel {
     //CONSTRUTOR DA IMUNIZACAO
     public ImunizacaoModel () {}
 
-    public ImunizacaoModel(int id_imunizacao, int id_paciente, int id_dose, LocalDate data_aplicacao) {
+    public ImunizacaoModel(Integer id_imunizacao, Integer id_paciente, Integer id_dose, LocalDate data_aplicacao) {
     this.id_imunizacao = id_imunizacao;
     this.id_paciente = id_paciente;
     this.id_dose = id_dose;
@@ -28,6 +28,17 @@ public class ImunizacaoModel {
     public ImunizacaoModel(Integer id_imunizacao, Integer id_paciente, Integer id_dose, LocalDate data_aplicacao,
             String fabricante, String lote, String local_aplicacao, String profissional_aplicador) {
         this.id_imunizacao = id_imunizacao;
+        this.id_paciente = id_paciente;
+        this.id_dose = id_dose;
+        this.data_aplicacao = data_aplicacao;
+        this.fabricante = fabricante;
+        this.lote = lote;
+        this.local_aplicacao = local_aplicacao;
+        this.profissional_aplicador = profissional_aplicador;
+    }
+
+    public ImunizacaoModel(Integer id_paciente, Integer id_dose, LocalDate data_aplicacao,
+            String fabricante, String lote, String local_aplicacao, String profissional_aplicador) {
         this.id_paciente = id_paciente;
         this.id_dose = id_dose;
         this.data_aplicacao = data_aplicacao;

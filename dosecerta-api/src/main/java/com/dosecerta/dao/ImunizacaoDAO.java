@@ -26,7 +26,7 @@ public class ImunizacaoDAO {
     //INSERIR 
     public int inserir(ImunizacaoModel i) throws SQLException {
 
-        String sql = "INSERT INTO imunizacao (id_paciente, id_dose, data_aplicacao, fabricante, lote, local_aplicacao, profissional_aplicador) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO imunizacoes (id_paciente, id_dose, data_aplicacao, fabricante, lote, local_aplicacao, profissional_aplicador) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -52,7 +52,7 @@ public class ImunizacaoDAO {
     public List<ImunizacaoModel> listar() throws SQLException {
 
         List<ImunizacaoModel> lista = new ArrayList<>();
-        String sql = "SELECT * FROM imunizacao";
+        String sql = "SELECT * FROM imunizacoes";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class ImunizacaoDAO {
     //BUSCAR POR ID
     public ImunizacaoModel buscarPorId(int id) throws SQLException {
 
-        String sql = "SELECT * FROM imunizacao WHERE id_imunizacao=?";
+        String sql = "SELECT * FROM imunizacoes WHERE id_imunizacao=?";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -114,7 +114,7 @@ public class ImunizacaoDAO {
     //ATUALIZAR
     public boolean atualizar(int id, ImunizacaoModel i) throws SQLException {
 
-        String sql = "UPDATE imunizacao SET id_paciente=?, id_dose=?, data_aplicacao=?, fabricante=?, lote=?, local_aplicacao=?, profissional_aplicador=? WHERE id_imunizacao=?";
+        String sql = "UPDATE imunizacoes SET id_paciente=?, id_dose=?, data_aplicacao=?, fabricante=?, lote=?, local_aplicacao=?, profissional_aplicador=? WHERE id_imunizacao=?";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -135,7 +135,7 @@ public class ImunizacaoDAO {
     //DELETAR
     public boolean deletar(int id) throws SQLException {
 
-        String sql = "DELETE FROM imunizacao WHERE id_imunizacao=?";
+        String sql = "DELETE FROM imunizacoes WHERE id_imunizacao=?";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -150,7 +150,7 @@ public class ImunizacaoDAO {
 
         List<ImunizacaoModel> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM imunizacao WHERE id_paciente=?";
+        String sql = "SELECT * FROM imunizacoes WHERE id_paciente=?";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -167,6 +167,11 @@ public class ImunizacaoDAO {
                         rs.getDate("data_aplicacao").toLocalDate()
                 );
 
+                i.setFabricante(rs.getString("fabricante"));
+                i.setLote(rs.getString("lote"));
+                i.setLocal_aplicacao(rs.getString("local_aplicacao"));
+                i.setProfissional_aplicador(rs.getString("profissional_aplicador"));
+
                 lista.add(i);
             }
         }
@@ -179,7 +184,7 @@ public class ImunizacaoDAO {
 
         List<ImunizacaoModel> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM imunizacao WHERE id_paciente=? AND data_aplicacao BETWEEN ? AND ?";
+        String sql = "SELECT * FROM imunizacoes WHERE id_paciente=? AND data_aplicacao BETWEEN ? AND ?";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -207,7 +212,7 @@ public class ImunizacaoDAO {
     // DELETAR TODAS IMUNIZACOES PACIENTE **
     public boolean deletarPorPaciente(int idPaciente) throws SQLException {
 
-        String sql = "DELETE FROM imunizacao WHERE id_paciente=?";
+        String sql = "DELETE FROM imunizacoes WHERE id_paciente=?";
 
         try (Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {

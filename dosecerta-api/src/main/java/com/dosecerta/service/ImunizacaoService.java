@@ -20,6 +20,11 @@ public class ImunizacaoService {
         return dao.listar();
     }
 
+    //BUSCAR POR ID IMUNIZACAO
+    public ImunizacaoModel buscarPorId(int id) throws SQLException {
+        return dao.buscarPorId(id);
+    }
+
     //BUSCAR POR ID PACIENTE
     public List<ImunizacaoModel> porPaciente(int id) throws SQLException {
         return dao.buscarPorPaciente(id);
@@ -39,4 +44,10 @@ public class ImunizacaoService {
     public boolean deletar(int id) throws SQLException {
         return dao.deletar(id);
     }
+
+    //DELETAR POR PACIENTE
+    public boolean deletarPorPaciente(int idPaciente) throws SQLException {
+        return dao.deletarPorPaciente(idPaciente);
+    }
+
 }

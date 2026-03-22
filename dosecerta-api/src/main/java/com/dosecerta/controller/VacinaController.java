@@ -18,19 +18,19 @@ public class VacinaController {
     private VacinaService service = new VacinaService();
 
     //CONSULTAR TODAS AS VACINAS
-    @GetMapping
+    @GetMapping("/consultar")
     public List<VacinaModel> listar() throws SQLException {
         return service.listar();
     }
 
     //BUSCAR VACINA POR PUBLICO ALVO (FAIXA ETARIA)
-    @GetMapping("/publico/{p}")
+    @GetMapping("/consultar/faixa_etaria/{p}")
     public List<VacinaModel> porPublico(@PathVariable String p) throws SQLException {
         return service.porPublico(p);
     }
 
     //CONSULTAR TODAS AS VACINAS RECOMENDADAS ACIMA DE UMA IDADE
-    @GetMapping("/idade/{meses}")
+    @GetMapping("/consultar/idade_maior/{meses}")
     public List<VacinaModel> porIdade(@PathVariable int meses) throws SQLException {
         return service.porIdade(meses);
     }

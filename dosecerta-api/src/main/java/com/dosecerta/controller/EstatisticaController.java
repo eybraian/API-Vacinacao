@@ -13,21 +13,28 @@ public class EstatisticaController {
     
     private EstatisticaService service = new EstatisticaService();
 
-    @GetMapping("/total")
-    public int total() throws Exception {
-        return service.totalAplicadas();
+    //QTE DE VACINAS APLICADAS EM PACIENTE, POR ID PACIENTE
+    @GetMapping("/imunizacoes/paciente/{id_paciente}")
+    public int porPaciente(@PathVariable int id_paciente) throws Exception {
+        return service.totalPorPaciente(id_paciente);
     }
 
-    @GetMapping("/vacina/{id}")
-    public int porVacina(@PathVariable int id) throws Exception {
-        return service.totalPorVacina(id);
+    //QTE DE VACINAS APLICAVEIS NO PROXIMO MES PARA UM PACIENTE, POR ID PACIENTE
+    @GetMapping("/proximas_imunizacoes/paciente/{id}")
+    public int proximasPaciente(@PathVariable("id") int id_paciente) throws Exception {
+        return service.proximasPaciente(id_paciente);
     }
 
-    //QTE DE VACINAS APLICADAS POR PACIENTE
+    //QTE DE VACINAS ATRASADAS DE UM PACIENTE
+    @GetMapping("/imunizacoes_atrasadas/paciente/{id}")
+    public int vacinasAtrasadas(@PathVariable("id") int id_paciente) throws Exception {
+    return service.vacinasAtrasadas(id_paciente);
+}
+    
+    //QTE DE VACINAS RECOMENDADAS ACIMA DE UMA DETERMINADA IDADE
+    @GetMapping("/imunizacoes/idade_maior/{meses}")
+    public int vacinasAcima(@PathVariable int meses) throws Exception {
+    return service.vacinasAcimaDeIdade(meses);
+}
 
-    //QTE DE VACINAS APLICAVEIS NO PROXIMO MES POR PACIENTE
-
-    //QTE DE VACINAS ATRASADAS
-
-    //QTE DE VACINAS ACIMA DE UMA DETERMINADA IDADE
 }
